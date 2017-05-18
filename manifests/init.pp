@@ -70,7 +70,7 @@ class geoserver(
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
-    content => template('geoserver/opt/geoserver/data/llc/llc_geo.xml'),
+    content => template('geoserver/opt/geoserver/data/llc/llc_geo.xml.erb'),
   }
   file {'/srv/tomcat/geoserver/conf/tomcat-users.xml':
     ensure  => file,
