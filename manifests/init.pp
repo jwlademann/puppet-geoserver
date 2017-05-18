@@ -1,28 +1,32 @@
 # See README.md for more documentation.
 class geoserver(
-  $server_name         = 'geoserver',
-  $server_port         = 8005,
-  $connector_port      = 8080,
-  $address             = $::fqdn,
-  $data_dir            = undef,
-  $cache_dir           = undef,
-  $java_opts           = undef,
-  $java_xms            = '2G',
-  $java_xmx            = '2G',
-  $java_xx_maxpermsize = '256m',
-  $java_xx_permsize    = '256m',
-  $ssl                 = false,
-  $truststorefile      = undef,
-  $truststorepass      = undef,
-  $rolename            = undef,
-  $username            = undef,
-  $password            = undef,
-  $roles               = undef,
+  $server_name                     = 'geoserver',
+  $server_port                     = 8005,
+  $connector_port                  = 8080,
+  $address                         = $::fqdn,
+  $data_dir                        = undef,
+  $cache_dir                       = undef,
+  $java_opts                       = undef,
+  $java_xms                        = '2G',
+  $java_xmx                        = '2G',
+  $java_xx_maxpermsize             = '256m',
+  $java_xx_permsize                = '256m',
+  $ssl                             = false,
+  $truststorefile                  = undef,
+  $truststorepass                  = undef,
+  $rolename                        = undef,
+  $username                        = undef,
+  $password                        = undef,
+  $roles                           = undef,
+  $llc_local_authority_api_db_host = undef,
+  $llc_local_authority_api_db_name = undef,
+  $llc_local_authority_api_db_user = undef,
+  $llc_local_authority_api_db_pass = undef,
 ) {
 
   include wget
 
-  file { ['/srv/tomcat/geoserver/conf/Catalina/', '/srv/tomcat/geoserver/conf/Catalina/localhost', '/srv/tomcat/geoserver/conf/webapps']:
+  file { ['/srv/tomcat/geoserver/conf/Catalina/', '/srv/tomcat/geoserver/conf/Catalina/localhost', '/srv/tomcat/geoserver/conf/webapps', '/opt/geoserver/data/llc']:
     ensure => directory,
     mode   => '0644',
     owner  => 'root',
@@ -40,7 +44,34 @@ class geoserver(
     creates => '/srv/tomcat/geoserver/webapps/geoserver.war',
   }
 
-
+  file {'/opt/geoserver/data/llc/boundary_layer.xml':
+    ensure => file,
+    mode   => '0644',
+    owner  => 'root',
+    group  => 'root',
+    source => 'puppet:///modules/geoserver/boundary_layer.xml',
+  }
+  file {'/opt/geoserver/data/llc/la_user_style.sld':
+    ensure => file,
+    mode   => '0644',
+    owner  => 'root',
+    group  => 'root',
+    source => 'puppet:///modules/geoserver/la_user_style.sld',
+  }
+  file {'/opt/geoserver/data/llc/lr_user_style.sld':
+    ensure  => file,
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    source  => 'puppet:///modules/geoserver/lr_user_style.sld',
+  }
+  file {'/opt/geoserver/data/llc/llc_geo.xml':
+    ensure  => file,
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    content => template('geoserver/opt/geoserver/data/llc/llc_geo.xml'),
+  }
   file {'/srv/tomcat/geoserver/conf/tomcat-users.xml':
     ensure  => file,
     mode    => '0644',
