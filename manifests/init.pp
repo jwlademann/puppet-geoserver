@@ -26,11 +26,18 @@ class geoserver(
 
   include wget
 
-  file { ['/srv/tomcat/geoserver/conf/Catalina/', '/srv/tomcat/geoserver/conf/Catalina/localhost', '/srv/tomcat/geoserver/conf/webapps', '/opt/geoserver/data/llc']:
+  file { ['/srv/tomcat/geoserver/conf/Catalina/', '/srv/tomcat/geoserver/conf/Catalina/localhost', '/srv/tomcat/geoserver/conf/webapps']:
     ensure => directory,
     mode   => '0644',
     owner  => 'root',
     group  => 'root',
+  }
+  ->
+  file {'/opt/geoserver/data/llc':
+    ensure => directory,
+    mode   => '0644',
+    owner  => 'deployment',
+    group  => 'deployment',
   }
   -> wget::fetch { 'get_geoserver_war':
     source      => 'https://downloads.sourceforge.net/project/geoserver/GeoServer/2.11.0/geoserver-2.11.0-war.zip?r=http%3A%2F%2Fgeoserver.org%2Frelease%2Fstable%2F&ts=1495015470&use_mirror=netix',
@@ -47,29 +54,29 @@ class geoserver(
   file {'/opt/geoserver/data/llc/boundary_layer.xml':
     ensure => file,
     mode   => '0644',
-    owner  => 'root',
-    group  => 'root',
+    owner  => 'deployment',
+    group  => 'deployment',
     source => 'puppet:///modules/geoserver/boundary_layer.xml',
   }
   file {'/opt/geoserver/data/llc/la_user_style.sld':
     ensure => file,
     mode   => '0644',
-    owner  => 'root',
-    group  => 'root',
+    owner  => 'deployment',
+    group  => 'deployment',
     source => 'puppet:///modules/geoserver/la_user_style.sld',
   }
   file {'/opt/geoserver/data/llc/lr_user_style.sld':
     ensure  => file,
     mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
+    owner   => 'deployment',
+    group   => 'deployment',
     source  => 'puppet:///modules/geoserver/lr_user_style.sld',
   }
   file {'/opt/geoserver/data/llc/llc_geo.xml':
     ensure  => file,
     mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
+    owner   => 'deployment',
+    group   => 'deployment',
     content => template('geoserver/opt/geoserver/data/llc/llc_geo.xml.erb'),
   }
   file {'/srv/tomcat/geoserver/conf/tomcat-users.xml':
