@@ -18,10 +18,10 @@ class geoserver(
   $username                        = undef,
   $password                        = undef,
   $roles                           = undef,
-  $llc_local_authority_api_db_host = undef,
-  $llc_local_authority_api_db_name = undef,
-  $llc_local_authority_api_db_user = undef,
-  $llc_local_authority_api_db_pass = undef,
+  $llc_local_authority_api_db_host = hiera('llc_local_authority_api_db_host'),
+  $llc_local_authority_api_db_name = hiera('llc_local_authority_api_db_name'),
+  $llc_local_authority_api_db_user = hiera('llc_local_authority_api_db_user'),
+  $llc_local_authority_api_db_pass = hiera('llc_local_authority_api_db_pass'),
 ) {
 
   include wget
