@@ -26,7 +26,14 @@ class geoserver(
 
   include wget
 
-  file { ['/srv/tomcat/geoserver/conf/Catalina/', '/srv/tomcat/geoserver/conf/Catalina/localhost', '/srv/tomcat/geoserver/conf/webapps', '/opt/geoserver/data/llc']:
+  file { ['/srv/tomcat/geoserver/conf/Catalina/', '/srv/tomcat/geoserver/conf/Catalina/localhost', '/srv/tomcat/geoserver/conf/webapps']:
+    ensure => directory,
+    mode   => '0644',
+    owner  => 'root',
+    group  => 'root',
+  }
+  ->
+  file {'/opt/geoserver/data/llc':
     ensure => directory,
     mode   => '0644',
     owner  => 'deployment',
