@@ -18,6 +18,7 @@ class geoserver(
   $username                        = undef,
   $password                        = undef,
   $roles                           = undef,
+  $datastore_name                  = undef,
   $llc_local_authority_api_db_host = hiera('llc_local_authority_api_db_host'),
   $llc_local_authority_api_db_name = hiera('llc_local_authority_api_db_name'),
   $llc_local_authority_api_db_user = hiera('llc_local_authority_api_db_user'),
