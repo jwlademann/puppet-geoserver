@@ -1,6 +1,6 @@
 # geoserver
-module for deploying geoserver
-forked from https://github.com/camptocamp/puppet-geoserver
+module for deploying geoserver forked from https://github.com/camptocamp/puppet-geoserver.
+
 This is still a WIP.
 
 This module will create a user and an instance of tomcat to host geoserver and deploy the geoserver with basic configuration. You have to provide proper hiera variables:
