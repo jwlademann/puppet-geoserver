@@ -5,8 +5,8 @@ This is still a WIP.
 
 This module will create a user and an instance of tomcat to host geoserver and deploy the geoserver with basic configuration. You have to provide proper hiera variables:
 ```
-data_dir - this should be `/opt/geoserver/data`
-cache_dir - this should be `/opt/geoserver/cache`
+data_dir - this should be /opt/geoserver/data
+cache_dir - this should be /opt/geoserver/cache
 rolename
 username
 password
