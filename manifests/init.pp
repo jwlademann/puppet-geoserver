@@ -1,5 +1,6 @@
 # See README.md for more documentation.
 class geoserver(
+  $source_url                      = 'https://downloads.sourceforge.net/project/geoserver/GeoServer/2.11.0/geoserver-2.11.0-war.zip?r=http%3A%2F%2Fgeoserver.org%2Frelease%2Fstable%2F&ts=1495015470&use_mirror=netix',
   $server_name                     = 'geoserver',
   $server_port                     = 8005,
   $connector_port                  = 8080,
@@ -41,7 +42,7 @@ class geoserver(
     group  => 'deployment',
   }
   -> wget::fetch { 'get_geoserver_war':
-    source      => 'https://downloads.sourceforge.net/project/geoserver/GeoServer/2.11.0/geoserver-2.11.0-war.zip?r=http%3A%2F%2Fgeoserver.org%2Frelease%2Fstable%2F&ts=1495015470&use_mirror=netix',
+    source      => $source_url,
     destination => '/tmp/geoserver.zip',
     timeout     => 0,
     verbose     => true,
