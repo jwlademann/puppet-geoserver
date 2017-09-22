@@ -1,0 +1,23 @@
+module tomcat-geoserver 1.0;
+
+require {
+  type tomcat_t;
+  type var_t;
+  type unreserved_port_t;
+  type usr_t;
+  class tcp_socket name_bind;
+  class dir { add_name create remove_name write };
+  class file { create getattr open read rename unlink write };
+}
+
+#============= tomcat_t ==============
+
+#!!!! This avc can be allowed using the boolean 'nis_enabled'
+allow tomcat_t unreserved_port_t:tcp_socket name_bind;
+
+#!!!! WARNING: 'usr_t' is a base type.
+allow tomcat_t usr_t:dir { add_name create remove_name write };
+allow tomcat_t usr_t:file { create rename unlink write };
+
+#!!!! WARNING: 'var_t' is a base type.
+allow tomcat_t var_t:file { getattr open read };
