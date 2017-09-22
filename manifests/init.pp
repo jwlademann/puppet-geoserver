@@ -145,7 +145,7 @@ class geoserver(
   selinux::module { 'tomcat-geoserver':
     ensure => 'present',
     source => 'puppet:///modules/geoserver/tomcat-geoserver.te',
-    before => Tomcat::instance['geoserver']
+    before => Tomcat::Instance['geoserver']
   }
 
   if $ssl {
