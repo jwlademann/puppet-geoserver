@@ -121,6 +121,7 @@ class geoserver(
   }
 
   include ::tomcat
+  include ::selinux
 
   tomcat::instance { 'geoserver':
     ensure             => present,
@@ -139,6 +140,12 @@ class geoserver(
     port     => $connector_port,
     protocol => 'HTTP/1.1',
     scheme   => $connector_scheme,
+  }
+
+  selinux::module { 'tomcat-geoserver':
+    ensure => 'present',
+    source => 'puppet:///modules/geoserver/tomcat-geoserver.te',
+    before => Tomcat::Instance['geoserver']
   }
 
   if $ssl {
